@@ -2,38 +2,25 @@ package Algorithm;
 
 public class Mark {
 	
-	private enum Mark{empty, black, white}
+	private enum MARK{empty, black, white}
 	
-	public Mark getMarkTake() {
-		
+	public MARK getMarkTake() {
+		if ( BLACKNUMBER + WHITENUMBER == 0 )
+			System.out.println("¶Â¤è°õ¤l");
+			return MARK.black;
+		if ( BLACKNUMBER - WHITENUMBER == 1 )
+			System.out.println("¥Õ¤è°õ¤l");
+			return MARK.white;
+		if ( WHITENUMBER - BLACKNUMBER == 1)
+			System.out.println("¶Â¤è°õ¤l");
+			return MARK.black;
 	}
-	
-	public int getWhiteScore() {
-		
-	}
-
-	public int getBlackScore() {
-		
-	}
-	
-	public int getWhiteScore(Board b) {
-		
-	}
-	
-	public int getBlackScore(Board b) {
-		
-	}
-	
 	
 }
 
 
 
 /*
-	Mark¾Ö¦³¤U´Ñªº¼Ð°O¡A¦³¤@­Óenum¡A¥]§t¤T­ÓªF¦è¡AMark.white, Mark.black, Mark.empty
-ƒÞ	public Mark getMarkTake() ¨ú±o²{¦b¤U´Ñªºª±®a¡A¥u·|¦^¶ÇMark.white, Mark.black
-ƒÞ	public int getWhiteScore() ¨ú±o·í«e¥Õ¤lªº¤À¼Æ
-ƒÞ	public int getBlackScore() ¨ú±o·í«e¶Â¤lªº¤À¼Æ
-ƒÞ	public int getWhiteScore(Board b) ·í½L­±¬°b¡A¥Õ¤lªº¤À¼Æ
-ƒÞ	public int getWhiteScore(Board b) ·í½L­±¬°b¡A¶Â¤lªº¤À¼Æ 
+	BLACKNUMBER = ¶Â¤l¼Æ¶q
+	WHITENUMBER = ¥Õ¤l¼Æ¶q
 */
