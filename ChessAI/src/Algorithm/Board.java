@@ -2,7 +2,7 @@ package Algorithm;
 
 public class Board {
 private int[][] board; 
-	private Mark[][] returnboard;
+	public Mark[][] returnboard;
 	
 
 	public Board() {
@@ -12,7 +12,7 @@ private int[][] board;
        
         for(int x=0;x<19;x++) {
            for(int y=0;y<19;y++) {
-        	 borad[x][y] = returnboard[x][y];  
+        	 board[x][y] = returnboard[x][y];  
         	   
            }
         

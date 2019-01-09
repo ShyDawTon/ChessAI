@@ -2,7 +2,7 @@ package Algorithm;
 
 public class Mark {
 	
-	private enum MARK{empty, black, white}
+	public enum MARK{empty, black, white}
 	
 	public MARK getMarkTake() {
 		if ( BLACKNUMBER + WHITENUMBER == 0 )
