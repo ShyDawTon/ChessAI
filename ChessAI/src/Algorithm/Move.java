@@ -46,10 +46,9 @@ public class Move {
 				if(board.returnboard[board_x][board_y]==(Object)Mark.MARK.empty) {
 					this.x=board_x;
 					this.y=board_y;
-				
-				move.add(this);
+					move.add(this);
+				}
 			}
-		}
 		
 		return move;
 	}
