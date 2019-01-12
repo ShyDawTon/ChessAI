@@ -1,7 +1,7 @@
 package Algorithm;
 
 public class otherMethod {
-	
+	/*
 	public int getWhiteScore() {
 		int rowtemp = 1;
 		int coltemp = 1;
@@ -60,7 +60,7 @@ public class otherMethod {
 	
 	public int getBlackScore(Board b) {
 		
-	}
+	}*/
 	
 }
 

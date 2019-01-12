@@ -1,261 +1,87 @@
 package Algorithm;
 
 public class Board {
-private int[][] board; 
-	public Mark[][] returnboard;
+	public enum MARK{empty, black, white}
+	public MARK[][] board = new MARK[19][19];
+	private int BLACK_COUNT=0, WHITE_COUNT=0;
+	private int BLACK_SCORE=0, WHITE_SCORE=0;
 	
-
+	/**
+	* Board«Øºc¤l
+	*/
 	public Board() {
-	 
-	   board  = new int[19][19];
-       returnboard = new Mark[19][19];
-       
-        for(int x=0;x<19;x++) {
-           for(int y=0;y<19;y++) {
-        	 board[x][y] = returnboard[x][y];  
-        	   
-           }
-        
-        }
+		BLACK_COUNT=0; WHITE_COUNT=0;
+		BLACK_SCORE=0; WHITE_SCORE=0;
+		for(int i=0; i<19; i++)
+			for(int j=0; j<19; j++)
+				board[i][j] = MARK.empty;
 	}
 	
-	public Board  getCurrentState() {
-		
-		
-	  return  this;
-		
+	/**
+	* ¨ú±o¸Óboardª«¥ó
+	*/
+	public Board getCurrentBoard() {
+		return this;
 	}
 	
-     public  Board getNextState() {
+	/**
+	* ¨ú±o¸g¹L²¾°Ê«áªºboard
+	* @param b => ±ý¶i¦æ°Ê§@ªºboard
+	* @param m => ±ý¤U¤lªº®y¼Ð
+	*/
+	public static Board getNextBoard(Board b, Move m) {
+		b.getAllChessScore(); // ³]©w¶Â¤l¥Õ¤lªº¤À¼Æ
+		// ¥Õ¤è¤U¤l
+		if ( b.BLACK_COUNT - b.WHITE_COUNT == 1 ) {
+			b.board[m.getMoveX()][m.getMoveY()] = MARK.white;
+		}
+		// ¶Â¤è¤U¤l
+		else {
+			b.board[m.getMoveX()][m.getMoveY()] = MARK.black;
+		}
+		return b;
+	}
 	
+	/**
+	* ¨ú±o¶Â¤l¥Õ¤lªº¤À¼Æ
+	*/
+	public void getAllChessScore() {
+		for(int i=0; i<19; i++) {
+			for(int j=0; j<19; j++) {
+				if(board[i][j]==MARK.black)
+					BLACK_COUNT+=1;
+				else WHITE_COUNT+=1;
+			}
+		}
+	}
 	
-		
-     }
-     
-     public int  getWiningMark( int[][] b) {
-        
-       
-       int  Px = 0;
-       int  Py = 0;
-       
-       for(int x=0;x<19;x++) {
-    	  for(int y=0;y<19;y++) {
-    	    	
-    	  if(b[x][y] == 1) {   //æ‰¾åˆ°æœ‰æ£‹çš„ä¸€é»ž ,æŠŠå®ƒç•¶ä½œåˆ†å‰²é»žå‘å·¦å‘å³æŸ¥çœ‹
-    	     
-    		  for(Px=x-1;Px>0;Px--)
-    			 int count=1;
-    			if(b[Px][y]==1)
-    			  count++;
-    		   if(count >= 6) {
-    			   
-    		   	 return 1 ;
-    		   	 
-    		   }
-    		   else  {
-    			   
-    			   break;
-    		   }
-    		  
-    		   
-    		  for(Px=x+1;Px<=19;Px++){  //å‘å³
-    			  int count = 1;
-    			  if(b[Px][y]==1)
-    				  count++;
-    			  if(count >=6 ) {
-    				 
-    				  return 1;
-    				 
-    			  }
-    			  else  {
-    				break;    
-    			  }
-    	
-    		  }
-    		  
-    		for(Py=y-1;Py>=0;Py--) {  //å‘ä¸‹
-    			int count = 1;
-    			if(b[x][Py]==1)
-    				count++;
-    			if(count >=6) {
-    				return 1;
-    			}
-    			else {
-    				break;
-    			}
-    				
-    		}  
-    		 
-    		for(Py=y+1;Py<=19;Py++) { //å‘
-    			int count = 1;
-    			if(b[x][Py]==1)
-    				count++;
-    			if(count>=6) {
-    				return 1;
-    			}
-    			else {
-    			
-    				 break;
-    			}
-    			
-    		}
-    		  
-    		for(Px=x-1,Py=y-1;Px>=0 && Py>=0 ; Px--,Py--) { //æ–œå·¦ä¸Š
-    			int count = 1;
-    			 if(b[Px][Py]==1)
-    				count++;
-    			 if(count>=6) {
-    				return 1; 
-    			 }
-    			 else {
-    				 break;
-    			 }
-    		}
-    		for(Px=x+1,Py=y+1;Px<=19 && Py<=19; Px++,Py++) {  //æ–œå³ä¸Š
-    			 int count = 1;
-    			 if(b[Px][Py]==1)
-    				 count++;
-    			 if(count>=6) {
-    				 return 1;
-    			 }
-    			 else {
-    				 break;
-    			 }
-    		}
-    		
-           for(Px=x+1,Py=y-1;Px>=0 && Py<=19 ; Px--,Py++) { //æ–œå³ä¸‹
-        	    int count=1;
-        	    if(b[Px][Py]==1)
-        	    	count++;
-        	    if(count>=6) {
-        	    	return 1;
-        	    }
-        	    else {
-        	    	break;
-        	    }
-           }
-           for(Px=x-1,Py=y+1;Px<=19 && Py>=0; Px++,Py--) { //æ–œå·¦ä¸‹
-       	    int count=1;
-       	    if(b[Px][Py]==1)
-       	    	count++;
-       	    if(count>=6) {
-       	    	return 1;
-       	    }
-       	    else {
-       	    	break;
-       	    }
-          }
-           else if(b[x][y]==2)	{
-        	   
-           
-        	   for(Px=x-1;Px>0;Px--)
-      			 int count=1;
-      			if(b[Px][y]==2)
-      			  count++;
-      		   if(count >= 6) {
-      			   
-      		   	 return 2 ;
-      		   	 
-      		   }
-      		   else  {
-      			   
-      			   break;
-      		   }
-      		  
-      		   
-      		  for(Px=x+1;Px<=19;Px++){  //å‘å³
-      			  int count = 1;
-      			  if(b[Px][y]==2)
-      				  count++;
-      			  if(count >=6 ) {
-      				 
-      				  return 2;
-      				 
-      			  }
-      			  else  {
-      				break;    
-      			  }
-      	
-      		  }
-      		  
-      		for(Py=y-1;Py>=0;Py--) {  //å‘ä¸‹
-      			int count = 1;
-      			if(b[x][Py]==2)
-      				count++;
-      			if(count >=6) {
-      				return 2;
-      			}
-      			else {
-      				break;
-      			}
-      				
-      		}  
-      		 
-      		for(Py=y+1;Py<=19;Py++) { //å‘ä¸‹
-      			int count = 1;
-      			if(b[x][Py]==2)
-      				count++;
-      			if(count>=6) {
-      				return 2;
-      			}
-      			else {
-      			
-      				 break;
-      			}
-      			
-      		}
-      		  
-      		for(Px=x-1,Py=y-1;Px>=0 && Py>=0 ; Px--,Py--) { //æ–œå·¦ä¸Š
-      			int count = 1;
-      			 if(b[Px][Py]==2)
-      				count++;
-      			 if(count>=6) {
-      				return 2; 
-      			 }
-      			 else {
-      				 break;
-      			 }
-      		}
-      		for(Px=x+1,Py=y+1;Px<=19 && Py<=19; Px++,Py++) {  //æ–œå³ä¸Š
-      			 int count = 1;
-      			 if(b[Px][Py]==2)
-      				 count++;
-      			 if(count>=6) {
-      				 return 2;
-      			 }
-      			 else {
-      				 break;
-      			 }
-      		}
-      		
-             for(Px=x+1,Py=y-1;Px>=0 && Py<=19 ; Px--,Py++) { //æ–œå³ä¸‹
-          	    int count=1;
-          	    if(b[Px][Py]==2)
-          	    	count++;
-          	    if(count>=6) {
-          	    	return 2;
-          	    }
-          	    else {
-          	    	break;
-          	    }
-             }
-             for(Px=x-1,Py=y+1;Px<=19 && Py>=0; Px++,Py--) { //æ–œå·¦ä¸‹
-         	    int count=1;
-         	    if(b[Px][Py]==2)
-         	    	count++;
-         	    if(count>=6) {
-         	    	return 2;
-         	    }
-         	    else {
-         	    	break;
-         	    }
-           }
-           
-           
-    		  
-    	  }
-    		  
-    		  
-    		  
-    	  }
+	/**
+	* ¿é¥Xboard
+	*/
+	public void printBoard() {
+		for(int i=0; i<19; i++) {
+			for(int j=0; j<19; j++) {
+				int number;
+				if(this.board[i][j] == MARK.empty) 
+					number=0;
+				else if(this.board[i][j] == MARK.black)
+					number=1;
+				else number=2;
+				System.out.printf("%4d",number);
+			}				
+			System.out.println();
+		}
+	}
+	
+	/**
+	* ¿é¥Xboard
+	* @param b => ±ý¿é¥Xªºboard
+	*/
+	public static void printBoard(Board b) {
+		for(int i=0; i<19; i++) {
+			for(int j=0; j<19; j++)
+				System.out.printf("%4d\n", b.board[i][j].values());
+			System.out.println();
+		}
+	}
 }

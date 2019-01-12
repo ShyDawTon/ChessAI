@@ -2,6 +2,8 @@ package Algorithm;
 
 import java.util.*;
 
+import Algorithm.Board.MARK;
+
 public class Move {
 	
 	//Store available coordinate of move
@@ -19,6 +21,12 @@ public class Move {
 	public int getMoveY() {
 		return this.y;
 	}
+	public void setMoveX(int x) {
+		this.x = x;
+	}
+	public void setMoveY(int y) {
+		this.y = y;
+	}
 	
 	//get available coordinate of move with current board
 	public ArrayList<Move> getAvailableMoves(){
@@ -27,7 +35,7 @@ public class Move {
 		
 		for(int board_x=0; board_x<19; board_x++)
 			for(int board_y=0; board_y<19; board_y++){
-				if(board.getCurrentState().returnboard[board_x][board_y]==(Object)Mark.MARK.empty) {
+				if(board.board[board_x][board_y]==MARK.empty) {
 					this.x=board_x;
 					this.y=board_y;
 					move.add(this);
@@ -38,18 +46,19 @@ public class Move {
 	}
 	
 	//get available coordinate of move with specific board
-	public ArrayList<Move> getAvailableMoves(Board board){
-		ArrayList<Move> move = new ArrayList<Move>();
+	public static ArrayList<Move> getAvailableMoves(Board b){
+		ArrayList<Move> moves = new ArrayList<Move>();
+		Move move = new Move();
 		
 		for(int board_x=0; board_x<19; board_x++)
 			for(int board_y=0; board_y<19; board_y++){
-				if(board.returnboard[board_x][board_y]==(Object)Mark.MARK.empty) {
-					this.x=board_x;
-					this.y=board_y;
-					move.add(this);
+				if(b.board[board_x][board_y]==MARK.empty) {
+					move.x=board_x;
+					move.y=board_y;
+					moves.add(move);
 				}
 			}
 		
-		return move;
+		return moves;
 	}
 }
